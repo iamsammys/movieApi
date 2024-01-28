@@ -11,7 +11,7 @@ const math = require('mathjs');
 
 class movieClass {
     // movie class
-    constructor(dict=null, title=null, director=null, genre=null, releaseDate, rating=0, availableCopies=0, rented=false, maxAvailableCopies=10) {
+    constructor(dict=null, title=null, director=null, genre=null, rating=0, availableCopies=0, rented=false, maxAvailableCopies=10) {
         if (dict && typeof dict === 'object') {
             this._id = dict.id;
             this._title = dict.title;
@@ -23,15 +23,15 @@ class movieClass {
             this._rented = dict.rented;
             this._maxAvailableCopies = dict.maxAvailableCopies;
         } else {
-        this._id = uuidv4();
-        this._title = title;
-        this._director = director;
-        this._genre = genre;
-        this._releaseDate = new Date();
-        this._rating = rating;
-        this._availableCopies = availableCopies;
-        this._rented = rented;
-        this._maxAvailableCopies = maxAvailableCopies;
+            this._id = uuidv4();
+            this._title = title;
+            this._director = director;
+            this._genre = genre;
+            this._releaseDate = new Date();
+            this._rating = math.min(rating, 10);
+            this._availableCopies = math.min(availableCopies, maxAvailableCopies)
+            this._rented = false;
+            this._maxAvailableCopies = maxAvailableCopies;
         }
     }
 
@@ -74,11 +74,6 @@ class movieClass {
         return this._genre;
     }
 
-    set setReleaseDate(releaseDate) {
-        // set release date
-        this._releaseDate = releaseDate;
-    }
-
     get getReleaseDate() {
         // get release date
         return this._releaseDate;
@@ -86,7 +81,7 @@ class movieClass {
 
     set setRating(rating) {
         // set rating
-        this._rating = rating;
+        this._rating = math.min(rating, 10);
     }
 
     get getRating() {
@@ -158,13 +153,6 @@ class movieClass {
         }
     }
 
-    update() {
-        // update movie
-        const storage = require('../storage/movieStorage');
-        this.setReleaseDate = new Date();
-        this.save();
-    }
-
     save() {
         // save movie
         const storage = require('../storage/movieStorage');
@@ -175,7 +163,8 @@ class movieClass {
     delete() {
         // delete movie
         const storage = require('../storage/movieStorage');
-        storage.deleteMovie(this);
+        const result = storage.deleteMovie(this);
+        return result;
     }
 }
 module.exports = movieClass;

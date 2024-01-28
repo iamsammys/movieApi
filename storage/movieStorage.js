@@ -79,9 +79,7 @@ class movieStorage {
         }
         const json = JSON.stringify(newDict);
         fs.writeFileSync(fileName, json, 'utf8', (err) => {
-            if (err) {
-                console.log(err);
-            }
+            if (err) {}
         });
     }
 
@@ -110,6 +108,7 @@ class movieStorage {
             delete movies[key];
         this.saveMovie();
         }
+        return '\n!!!!!!!!!!!!!!!!!!!!\nMovie deleted successfully!\n';
     }
 }
 movieStorage.reload();
