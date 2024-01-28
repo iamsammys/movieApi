@@ -151,10 +151,10 @@ class movieClass {
                 this.save()
                 return true
             } else {
-                return 'max copies reached';
+                return false;
             }
         } else {
-            return 'movie not rented or max copies reached';
+            return false;
         }
     }
 

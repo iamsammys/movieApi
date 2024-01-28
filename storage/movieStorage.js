@@ -42,9 +42,15 @@ class movieStorage {
         for (const key in this.getAllMovies()) {
             const movie = movies[key];
             if (movie.getTitle == movieTitle)
-                return movie.rentMovie();
+                if (movie.rentMovie()) {
+                    console.log('\n!!!!!!!!!!!!!!!!!!!!\nMovie rented successfully!\n');
+                    return null;
+                } else {
+                    console.log('\n!!!!!!!!!!!!!!!!!!!!!Movie not available!\n');
+                    return null
+                }
         }
-        return 'Movie not found'
+        return '\nMovie not found\n'
     }
     
     static returnMovie(movieTitle) {
@@ -52,9 +58,14 @@ class movieStorage {
         for (const key in movies) {
             const movie = movies[key];
             if (movie.getTitle == movieTitle) {
-                return movie.returnMovie();
+                if (movie.returnMovie()) {
+                    console.log('\n!!!!!!!!!!!!!!!!!!!!\nMovie returned successfully!\n');
+                    return null;
+                } else {
+                    return '\n!!!!!!!!!!!!!!!!!!!!\nAll movies have been returned or movie has not been rented out yet\n';
+                }
             } else {
-                return 'Movie not found'
+                return '\n!!!!!!!!!!!!!!!!!!!!\nMovie not found\n'
             }
         }
     }
