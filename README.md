@@ -18,10 +18,10 @@ The Movie Rental System is a command-line application designed to manage a movie
 git clone https://github.com/your-username/movie-rental-system.git
 ```
 
-**Run**
-`node movieApiConsole`
+**Run the app:**
 
-- in the root dir
+`node movieApiConsole`
+in the root dir
 
 ### Actions
 
